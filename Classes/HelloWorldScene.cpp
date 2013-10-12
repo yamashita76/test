@@ -4,6 +4,7 @@ USING_NS_CC;
 
 CCScene* HelloWorld::scene()
 {
+	CCLog("aaaaaaaa");
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
@@ -46,8 +47,23 @@ bool HelloWorld::init()
 
     // create menu, it's an autorelease object
     CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
-    pMenu->setPosition(CCPointZero);
+    pMenu->setPosition(-100,50);
     this->addChild(pMenu, 1);
+
+
+    /////////////////////////////
+    // 2. add a menu item with change scene
+       CCMenuItemImage *pChangeSceneItem2 = CCMenuItemImage::create(
+                                                                   "CloseNormal.png",
+                                                                   "CloseSelected.png",
+                                                                   this,
+                                                                   menu_selector(HelloWorld::menuChangeScene) );
+       pChangeSceneItem2->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width -20, 20) );
+
+       // create menu, it's an autorelease object
+       CCMenu* pMenu2 = CCMenu::create(pChangeSceneItem2, NULL);
+       pMenu2->setPosition(-100,150);
+       this->addChild(pMenu2, 1);
 
     /////////////////////////////
     // 3. add your codes below...
@@ -55,7 +71,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", 24);
+    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", 50);
     
     // position the label on the center of the screen
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
@@ -66,7 +82,7 @@ bool HelloWorld::init()
 
     // add "HelloWorld" splash screen"
     CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-    CCSprite* image = CCSprite::create("bikkuri.png");
+    CCSprite* image = CCSprite::create("image.png");
 
     // position the sprite on the center of the screen
     pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -81,6 +97,10 @@ bool HelloWorld::init()
     image->runAction(move);
     this->addChild(pSprite, 0);
     this->addChild(image,1);
+
+
+     // create menu, it's an autorelease object
+
 
     return true;
 }
@@ -111,6 +131,7 @@ void HelloWorld::update(float delta)
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
@@ -119,4 +140,11 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
     exit(0);
 #endif
 #endif
+	//CCDirector::sharedDirector()->popScene();
 }
+
+void HelloWorld::menuChangeScene(CCObject* pSender)
+{
+	CCDirector::sharedDirector()->popScene();
+}
+
