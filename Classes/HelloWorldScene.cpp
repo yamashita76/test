@@ -1,4 +1,7 @@
 #include "HelloWorldScene.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 
 USING_NS_CC;
 
@@ -99,12 +102,20 @@ bool HelloWorld::init()
     this->addChild(image,1);
 
 
+
+    SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("field.mp3");
+    SoundPlayer();
      // create menu, it's an autorelease object
 
 
     return true;
 }
 
+void HelloWorld::SoundPlayer()
+{
+	  SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(2.0);
+	  SimpleAudioEngine::sharedEngine()->playBackgroundMusic("c.mp3", true);
+}
 void HelloWorld::ccTouchEnded(cocos2d::CCSet *pTouch, cocos2d::CCEvent *pEvent )
 {
 	CCSetIterator it;
@@ -127,6 +138,8 @@ void HelloWorld::ccTouchEnded(cocos2d::CCSet *pTouch, cocos2d::CCEvent *pEvent )
 
 void HelloWorld::update(float delta)
 {
+
+
 }
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
@@ -145,6 +158,7 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 
 void HelloWorld::menuChangeScene(CCObject* pSender)
 {
+	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 	CCDirector::sharedDirector()->popScene();
 }
 

@@ -17,7 +17,7 @@ public:
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
     void menuChangeScene(CCObject* pSender);
-    
+    void SoundPlayer();
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
 };
